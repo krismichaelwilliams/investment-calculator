@@ -1,0 +1,51 @@
+form {
+  padding: 1.75em;
+  max-width: 30em;
+  margin: 2em auto;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #307e6c, #2b996d);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 3em;
+  margin-bottom: 1.5em;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 0.65em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #76c0ae;
+  border-radius: 0.25em;
+  background-color: transparent;
+  color: #c2e9e0;
+  font-size: 1em;
+}
+
+button {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #76c0ae;
+  border-radius: 0.25em;
+  background-color: #83e6c0;
+  color: #1a1f1d;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #aaf1d6;
+}

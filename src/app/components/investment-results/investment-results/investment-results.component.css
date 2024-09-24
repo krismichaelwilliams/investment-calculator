@@ -1,0 +1,19 @@
+table {
+  max-width: 50em;
+  margin: 2em auto;
+  padding: 1em;
+  table-layout: fixed;
+  border-spacing: 1em;
+  text-align: right;
+}
+
+th {
+  font-size: 0.75em;
+  color: #83e6c0;
+}
+
+td {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 0.75em;
+  color: #c2e9e0;
+}
