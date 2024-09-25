@@ -1,17 +1,27 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { FormInput } from '../../models/form-input.model';
 import { InvestmentResult } from '../../models/investment-result.model';
-import { Observable, of, switchMap } from 'rxjs';
+import { Observable, of, Subject, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatorService {
-  investmentResults: Observable<InvestmentResult[]> = of([]);
+  investmentResults: InvestmentResult[] = [
+    {
+      year: 0,
+      valueEndOfYear: 1,
+      interestForYear: 2,
+      totalInterest: 3,
+      annualInvestment: 4,
+      totalAmountInvested: 5,
+    },
+  ];
+  @Output() calculate = new EventEmitter<InvestmentResult[]>();
 
   constructor() {}
 
-  getInvestmentResults(): Observable<InvestmentResult[]> {
+  getInvestmentResults(): InvestmentResult[] {
     return this.investmentResults;
   }
 
@@ -39,6 +49,7 @@ export class CalculatorService {
       });
     }
 
-    this.investmentResults.pipe(switchMap(() => investmentResults));
+    this.investmentResults = investmentResults;
+    this.calculate.emit(this.investmentResults);
   }
 }

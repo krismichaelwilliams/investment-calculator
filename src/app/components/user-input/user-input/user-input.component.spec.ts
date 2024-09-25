@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
 import { getFakeInvestmentResults } from '../../../test-helpers/test-helpers';
 import { UserInputComponent } from './user-input.component';
+
 describe('UserInputComponent', () => {
   let component: UserInputComponent;
   let fixture: ComponentFixture<UserInputComponent>;
@@ -29,22 +30,22 @@ describe('UserInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // describe('onSubmit', () => {
-  //   it('should set calculatorService.InvestmentResult', () => {
-  //     // Arrange
-  //     let expectedResult = getFakeInvestmentResults();
-  //     calculatorServiceSpy.calculateInvestmentResults.and.callFake(() => {
-  //       calculatorServiceSpy.investmentResults = expectedResult;
-  //     });
+  describe('onSubmit', () => {
+    it('should set calculatorService.InvestmentResult', () => {
+      // Arrange
+      let expectedResult = getFakeInvestmentResults();
+      calculatorServiceSpy.calculateInvestmentResults.and.callFake(() => {
+        calculatorServiceSpy.investmentResults = expectedResult;
+      });
 
-  //     // Act
-  //     let result = component.onSubmit();
+      // Act
+      let result = component.onSubmit();
 
-  //     // Assert
-  //     expect(
-  //       calculatorServiceSpy.calculateInvestmentResults
-  //     ).toHaveBeenCalledTimes(1);
-  //     expect(calculatorServiceSpy.investmentResults).toEqual(expectedResult);
-  //   });
-  // });
+      // Assert
+      expect(
+        calculatorServiceSpy.calculateInvestmentResults
+      ).toHaveBeenCalledTimes(1);
+      expect(calculatorServiceSpy.investmentResults).toEqual(expectedResult);
+    });
+  });
 });

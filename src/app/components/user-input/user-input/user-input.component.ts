@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FormInput } from '../../../models/form-input.model';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
+import { InvestmentResult } from '../../../models/investment-result.model';
 
 @Component({
   selector: 'app-user-input',
