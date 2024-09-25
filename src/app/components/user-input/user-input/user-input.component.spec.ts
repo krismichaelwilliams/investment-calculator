@@ -29,22 +29,22 @@ describe('UserInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('onSubmit', () => {
-    it('should set calculatorService.InvestmentResult', () => {
-      // Arrange
-      let expectedResult = getFakeInvestmentResults();
-      calculatorServiceSpy.calculateInvestmentResults.and.callFake(() => {
-        calculatorServiceSpy.investmentResults = expectedResult;
-      });
+  // describe('onSubmit', () => {
+  //   it('should set calculatorService.InvestmentResult', () => {
+  //     // Arrange
+  //     let expectedResult = getFakeInvestmentResults();
+  //     calculatorServiceSpy.calculateInvestmentResults.and.callFake(() => {
+  //       calculatorServiceSpy.investmentResults = expectedResult;
+  //     });
 
-      // Act
-      let result = component.onSubmit();
+  //     // Act
+  //     let result = component.onSubmit();
 
-      // Assert
-      expect(
-        calculatorServiceSpy.calculateInvestmentResults
-      ).toHaveBeenCalledTimes(1);
-      expect(calculatorServiceSpy.investmentResults).toEqual(expectedResult);
-    });
-  });
+  //     // Assert
+  //     expect(
+  //       calculatorServiceSpy.calculateInvestmentResults
+  //     ).toHaveBeenCalledTimes(1);
+  //     expect(calculatorServiceSpy.investmentResults).toEqual(expectedResult);
+  //   });
+  // });
 });

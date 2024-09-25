@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { FormInput } from '../../models/form-input.model';
 import { InvestmentResult } from '../../models/investment-result.model';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatorService {
-  investmentResults: InvestmentResult[] = [];
+  investmentResults: Observable<InvestmentResult[]> = of([]);
 
   constructor() {}
 
-  getInvestmentResults(): InvestmentResult[] {
+  getInvestmentResults(): Observable<InvestmentResult[]> {
     return this.investmentResults;
   }
 
   calculateInvestmentResults(formInput: FormInput) {
+    let investmentResults: InvestmentResult[] = [];
     let investmentValue = formInput.initialInvestment;
 
     for (let i = 0; i < formInput.duration; i++) {
@@ -26,7 +28,7 @@ export class CalculatorService {
         investmentValue -
         formInput.annualInvestment * year -
         formInput.initialInvestment;
-      this.investmentResults.push({
+      investmentResults.push({
         year: year,
         valueEndOfYear: investmentValue,
         interestForYear: interestEarnedInYear,
@@ -36,5 +38,7 @@ export class CalculatorService {
           formInput.initialInvestment + formInput.annualInvestment * year,
       });
     }
+
+    this.investmentResults.pipe(switchMap(() => investmentResults));
   }
 }

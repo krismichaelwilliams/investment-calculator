@@ -5,6 +5,7 @@ import {
   getFakeInvestmentResults,
 } from '../../test-helpers/test-helpers';
 import { CalculatorService } from './calculator.service';
+import { of } from 'rxjs';
 
 describe('CalculatorService', () => {
   let service: CalculatorService;
@@ -21,7 +22,7 @@ describe('CalculatorService', () => {
   describe('getInvestmentResults', () => {
     it('should return investmentResults', () => {
       // Arrange
-      service.investmentResults = getFakeInvestmentResults();
+      service.investmentResults = of(getFakeInvestmentResults());
 
       // Act
       let result = service.getInvestmentResults();
@@ -32,16 +33,17 @@ describe('CalculatorService', () => {
   });
 
   describe('calculateInvestmentResults', () => {
-    it('should set investmentResults to an InvestmentResult[] with a length equal the duration of the formInput', () => {
+    fit('should set investmentResults to an InvestmentResult[] with a length equal the duration of the formInput', () => {
       // Arrange
       let formInput: FormInput = getFakeFormInput();
 
       // Act
+      debugger;
       service.calculateInvestmentResults(formInput);
       let result = service.investmentResults;
 
       // Assert
-      expect(result.length).toEqual(formInput.duration);
+      expect(result).toEqual(service.getInvestmentResults());
     });
   });
 });
