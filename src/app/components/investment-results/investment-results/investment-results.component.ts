@@ -1,17 +1,17 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InvestmentResult } from '../../../models/investment-result.model';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-investment-results',
   standalone: true,
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './investment-results.component.html',
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent implements OnInit {
-  displayResults: boolean = false;
   investmentResults!: InvestmentResult[];
   destroyRef = inject(DestroyRef);
 
@@ -26,7 +26,10 @@ export class InvestmentResultsComponent implements OnInit {
       ?.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.investmentResults = this.calculatorService.getInvestmentResults();
-        // this.displayResults = true;
       });
+  }
+
+  shouldDisplayResults(): boolean {
+    return this.investmentResults?.length > 0;
   }
 }

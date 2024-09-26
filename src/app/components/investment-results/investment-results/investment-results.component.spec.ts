@@ -5,17 +5,12 @@ import {
   tick,
 } from '@angular/core/testing';
 
-import { InvestmentResultsComponent } from './investment-results.component';
-import { CalculatorService } from '../../../services/calculator/calculator.service';
-import { interval, take } from 'rxjs';
-import {
-  getFakeFormInput,
-  getFakeInvestmentResults,
-} from '../../../test-helpers/test-helpers';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventEmitter } from '@angular/core';
+import { interval, take } from 'rxjs';
 import { InvestmentResult } from '../../../models/investment-result.model';
-import { __addDisposableResource } from 'tslib';
+import { CalculatorService } from '../../../services/calculator/calculator.service';
+import { getFakeInvestmentResults } from '../../../test-helpers/test-helpers';
+import { InvestmentResultsComponent } from './investment-results.component';
 
 describe('InvestmentResultsComponent', () => {
   let component: InvestmentResultsComponent;
@@ -69,10 +64,41 @@ describe('InvestmentResultsComponent', () => {
       expect(component.investmentResults).toBeTruthy();
       expect(component.investmentResults).toEqual(expectedResult);
     }));
+  });
 
-    it('should set displayResults to true', () => {
+  describe('shouldDisplayResults', () => {
+    it('should set displayResults to true if investmentResults is not null or empty', fakeAsync(() => {
+      // Arrange
+      calculatorServiceSpy.getInvestmentResults.and.returnValue(
+        getFakeInvestmentResults()
+      );
+
+      // Act
+      interval(1000)
+        .pipe(take(1))
+        .subscribe(() => {
+          calculatorServiceSpy.calculate?.emit();
+        });
+      tick(2000);
+
       // Assert
-      expect(component.displayResults).toBeTrue();
-    });
+      expect(component.shouldDisplayResults()).toBeTrue();
+    }));
+
+    it('should set displayResults to false if investmentResults is null or empty', fakeAsync(() => {
+      // Arrange
+      calculatorServiceSpy.getInvestmentResults.and.returnValue([]);
+
+      // Act
+      interval(1000)
+        .pipe(take(1))
+        .subscribe(() => {
+          calculatorServiceSpy.calculate?.emit([]);
+        });
+      tick(2000);
+
+      // Assert
+      expect(component.shouldDisplayResults()).toBeFalse();
+    }));
   });
 });
