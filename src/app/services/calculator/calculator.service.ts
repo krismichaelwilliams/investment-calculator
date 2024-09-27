@@ -6,12 +6,10 @@ import { InvestmentResult } from '../../models/investment-result.model';
   providedIn: 'root',
 })
 export class CalculatorService {
-  investmentResults: InvestmentResult[] = [];
+  resultData!: InvestmentResult[];
 
-  constructor() {}
-
-  getInvestmentResults(): InvestmentResult[] {
-    return this.investmentResults;
+  get investmentResults(): InvestmentResult[] {
+    return this.resultData;
   }
 
   calculateInvestmentResults(formInput: FormInput) {
@@ -36,5 +34,7 @@ export class CalculatorService {
           formInput.initialInvestment + formInput.annualInvestment * year,
       });
     }
+
+    this.resultData = investmentResults;
   }
 }

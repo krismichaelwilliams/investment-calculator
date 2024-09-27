@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InvestmentResult } from '../../../models/investment-result.model';
+import { CalculatorService } from '../../../services/calculator/calculator.service';
 
 @Component({
   selector: 'app-investment-results',
@@ -9,6 +9,11 @@ import { InvestmentResult } from '../../../models/investment-result.model';
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent {
-  displayResults: boolean = false;
-  investmentResults!: InvestmentResult[];
+  displayResults: boolean = true;
+
+  constructor(private calculatorService: CalculatorService) {}
+
+  get investmentResults() {
+    return this.calculatorService.investmentResults;
+  }
 }
