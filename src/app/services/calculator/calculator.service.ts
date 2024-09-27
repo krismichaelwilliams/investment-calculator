@@ -13,6 +13,7 @@ export class CalculatorService {
   }
 
   calculateInvestmentResults(formInput: FormInput) {
+    let investmentResults: InvestmentResult[] = [];
     let investmentValue = formInput.initialInvestment;
 
     for (let i = 0; i < formInput.duration; i++) {
@@ -24,7 +25,7 @@ export class CalculatorService {
         investmentValue -
         formInput.annualInvestment * year -
         formInput.initialInvestment;
-      this.investmentResults.push({
+      investmentResults.push({
         year: year,
         valueEndOfYear: investmentValue,
         interestForYear: interestEarnedInYear,

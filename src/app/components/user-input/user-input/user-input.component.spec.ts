@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
 import { getFakeInvestmentResults } from '../../../test-helpers/test-helpers';
 import { UserInputComponent } from './user-input.component';
+
 describe('UserInputComponent', () => {
   let component: UserInputComponent;
   let fixture: ComponentFixture<UserInputComponent>;

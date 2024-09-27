@@ -1,4 +1,4 @@
-@if (displayResults) {
+@if (shouldDisplayResults()) {
 <table>
   <thead>
     <tr>
@@ -13,10 +13,10 @@
     @for (item of investmentResults; track item) {
     <tr>
       <td>{{ item.year }}</td>
-      <td>{{ item.valueEndOfYear }}</td>
-      <td>{{ item.interestForYear }}</td>
-      <td>{{ item.totalInterest }}</td>
-      <td>{{ item.totalAmountInvested }}</td>
+      <td>{{ item.valueEndOfYear | currency }}</td>
+      <td>{{ item.interestForYear | currency }}</td>
+      <td>{{ item.totalInterest | currency }}</td>
+      <td>{{ item.totalAmountInvested | currency }}</td>
     </tr>
     }
   </tbody>
