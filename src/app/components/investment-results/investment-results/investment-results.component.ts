@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
 
@@ -9,11 +10,7 @@ import { CalculatorService } from '../../../services/calculator/calculator.servi
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent {
-  displayResults: boolean = true;
-
   constructor(private calculatorService: CalculatorService) {}
 
-  get investmentResults() {
-    return this.calculatorService.investmentResults;
-  }
+  investmentResults = this.calculatorService.investmentResults?.asReadonly();
 }

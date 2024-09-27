@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { FormInput } from '../../models/form-input.model';
 import { InvestmentResult } from '../../models/investment-result.model';
 
@@ -6,11 +6,7 @@ import { InvestmentResult } from '../../models/investment-result.model';
   providedIn: 'root',
 })
 export class CalculatorService {
-  resultData!: InvestmentResult[];
-
-  get investmentResults(): InvestmentResult[] {
-    return this.resultData;
-  }
+  investmentResults = signal<InvestmentResult[] | undefined>(undefined);
 
   calculateInvestmentResults(formInput: FormInput) {
     let investmentResults: InvestmentResult[] = [];
@@ -36,6 +32,6 @@ export class CalculatorService {
       });
     }
 
-    this.resultData = investmentResults;
+    this.investmentResults.set(investmentResults);
   }
 }

@@ -1,13 +1,5 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventEmitter } from '@angular/core';
-import { interval, take } from 'rxjs';
-import { InvestmentResult } from '../../../models/investment-result.model';
 import { CalculatorService } from '../../../services/calculator/calculator.service';
 import { getFakeInvestmentResults } from '../../../test-helpers/test-helpers';
 import { InvestmentResultsComponent } from './investment-results.component';
@@ -34,8 +26,6 @@ describe('InvestmentResultsComponent', () => {
 
     fixture = TestBed.createComponent(InvestmentResultsComponent);
     component = fixture.componentInstance;
-
-    calculatorServiceSpy.calculate = new EventEmitter<InvestmentResult[]>();
     fixture.detectChanges();
   });
 
@@ -43,62 +33,17 @@ describe('InvestmentResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('initializeCalculateEventSubscriber', () => {
-    it('should set investmentResults to the result of getInvestmentResults', fakeAsync(() => {
+  describe('investmentResults', () => {
+    it('should return calculatorService.resultData', () => {
       // Arrange
-      let expectedResult = getFakeInvestmentResults();
-      calculatorServiceSpy.getInvestmentResults.and.returnValue(expectedResult);
+      calculatorServiceSpy.investmentResults?.set(getFakeInvestmentResults());
+      let expectedResult = calculatorServiceSpy.investmentResults;
 
       // Act
-      interval(1000)
-        .pipe(take(1))
-        .subscribe(() => {
-          calculatorServiceSpy.calculate?.emit(expectedResult);
-        });
-      tick(2000);
+      let result = component.investmentResults;
 
       // Assert
-      expect(calculatorServiceSpy.getInvestmentResults).toHaveBeenCalledTimes(
-        1
-      );
-      expect(component.investmentResults).toBeTruthy();
-      expect(component.investmentResults).toEqual(expectedResult);
-    }));
-  });
-
-  describe('shouldDisplayResults', () => {
-    it('should set displayResults to true if investmentResults is not null or empty', fakeAsync(() => {
-      // Arrange
-      calculatorServiceSpy.getInvestmentResults.and.returnValue(
-        getFakeInvestmentResults()
-      );
-
-      // Act
-      interval(1000)
-        .pipe(take(1))
-        .subscribe(() => {
-          calculatorServiceSpy.calculate?.emit();
-        });
-      tick(2000);
-
-      // Assert
-      expect(component.shouldDisplayResults()).toBeTrue();
-    }));
-
-    it('should set displayResults to false if investmentResults is null or empty', fakeAsync(() => {
-      // Arrange
-      calculatorServiceSpy.getInvestmentResults.and.returnValue([]);
-
-      // Act
-      interval(1000)
-        .pipe(take(1))
-        .subscribe(() => {
-          calculatorServiceSpy.calculate?.emit([]);
-        });
-      tick(2000);
-
-      // Assert
-      expect(component.shouldDisplayResults()).toBeFalse();
-    }));
+      expect(result).toEqual(expectedResult);
+    });
   });
 });
